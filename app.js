@@ -1,10 +1,20 @@
 const express = require('express')
+const session = require('express-session');
 const mongoose = require('mongoose');
+const blogRoutes = require('./routes/blogRoute.js');
 // const cors = require('cors');
 require('dotenv').config();
 const app = express()
 const port = process.env.PORT || 3000;
 // const Blog = require('./models/blogs');
+
+app.use(
+  session({
+    secret: 'cat',
+    resave: false,
+    saveUninitialized: true
+  })
+);
 
 
 // 從環境變數中取得 MongoDB 連線字串的帳號密碼
@@ -12,7 +22,6 @@ const dbUser = process.env.DB_USER;
 const dbPassword = process.env.DB_PASSWORD;
 
 
-const blogRoutes = require('./routes/blogRoute.js');
 const dbURI = `mongodb+srv://${dbUser}:${dbPassword}@thefuckingclustername.pczmutf.mongodb.net/a0314?retryWrites=true&w=majority&appName=theFuckingClusterName`;
 mongoose.connect(dbURI)
 .then(res=> {
