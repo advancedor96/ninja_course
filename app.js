@@ -2,7 +2,7 @@ const express = require('express')
 const session = require('express-session');
 const mongoose = require('mongoose');
 const blogRoutes = require('./routes/blogRoute.js');
-// const cors = require('cors');
+const cors = require('cors');
 require('dotenv').config();
 const app = express()
 const port = process.env.PORT || 3000;
@@ -31,7 +31,7 @@ mongoose.connect(dbURI)
 .catch(err=> console.log('錯誤:', err))
 
 app.use(express.json()); // 解析 JSON 請求主體
-// app.use(cors());
+app.use(cors());
 app.use('/api', blogRoutes);
 
 app.listen(port, () => {
