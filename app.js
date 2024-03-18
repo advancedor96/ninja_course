@@ -14,7 +14,7 @@ app.use(
     secret: 'cat',
     resave: false,
     // name: 'myUUUUser',
-    cookie: { maxAge : 60000},
+    // cookie: { maxAge : 60000},
     saveUninitialized: false,
     store: new MemoryStore({
       checkPeriod: 86400000 // prune expired entries every 24h
