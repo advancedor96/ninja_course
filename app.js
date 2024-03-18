@@ -1,6 +1,6 @@
 const express = require('express')
 const session = require('express-session');
-const MemoryStore = require('memorystore')(session);
+// const MemoryStore = require('memorystore')(session);
 const mongoose = require('mongoose');
 const blogRoutes = require('./routes/blogRoute.js');
 const cors = require('cors');
@@ -16,9 +16,9 @@ app.use(
     // name: 'myUUUUser',
     // cookie: { maxAge : 60000},
     saveUninitialized: false,
-    store: new MemoryStore({
-      checkPeriod: 86400000 // prune expired entries every 24h
-    }),
+    // store: new MemoryStore({
+    //   checkPeriod: 86400000 // prune expired entries every 24h
+    // }),
   })
 );
 
