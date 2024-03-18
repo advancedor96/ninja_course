@@ -13,8 +13,8 @@ app.use(
   session({
     secret: 'cat',
     resave: false,
-    name: 'myUUUUser',
-    cookie: { maxAge : 30000},
+    // name: 'myUUUUser',
+    cookie: { maxAge : 60000},
     saveUninitialized: false,
     store: new MemoryStore({
       checkPeriod: 86400000 // prune expired entries every 24h

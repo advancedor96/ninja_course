@@ -6,7 +6,7 @@ const blogController = {
   getAllBlogs: async (req, res)=>{
     try {
       // claude 給我這一行：
-      const user = await User.findById(req.session.user.userId).populate('blogs');
+      const user = await User.findById(req.session.user._id).populate('blogs');
       const blogs = user.blogs;
 
       // const blogs = await Blog.find();
@@ -31,11 +31,11 @@ const blogController = {
   createBlog: async (req, res) => {
     try {
       const { title, content } = req.body;
-      const userId = req.session.user.userId; // 從會話中獲取用戶 ID
+      const userId = req.session.user._id; // 從會話中獲取用戶 ID
 
       const user = await User.findById(userId);
       if (!user) {
-        return res.status(404).json({ error: 'User not found' });
+        return res.status(404).json({ error: '沒有這個user' });
       }
 
       const newBlog = new Blog({ title, content, author: user._id });
@@ -55,7 +55,7 @@ const blogController = {
     try {
       const { id } = req.params;
       const { title, content } = req.body;
-      const userId = req.session.user.userId;
+      const userId = req.session.user._id;
 
       // 查找博客
       const blog = await Blog.findById(id);
@@ -81,7 +81,7 @@ const blogController = {
   deleteBlog: async (req, res) => {
     try {
       const { id } = req.params;
-      const userId = req.session.user.userId;
+      const userId = req.session.user._id;
 
       // 查找博客
       const blog = await Blog.findById(id);
