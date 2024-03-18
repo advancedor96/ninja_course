@@ -1,4 +1,6 @@
 exports.authenticateUser = (req, res, next) => {
+  console.log('中途的session id:',req.sessionID);
+  
   console.log('中途檢查session:', req.session);
   
   if (!req.session.user) {
