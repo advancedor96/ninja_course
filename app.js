@@ -12,7 +12,8 @@ app.use(
   session({
     secret: 'cat',
     resave: false,
-    saveUninitialized: true
+    name: 'myUUUUser',
+    saveUninitialized: false
   })
 );
 
@@ -31,7 +32,13 @@ mongoose.connect(dbURI)
 .catch(err=> console.log('錯誤:', err))
 
 app.use(express.json()); // 解析 JSON 請求主體
-app.use(cors());
+
+const corsOptions = {
+  origin: 'http://localhost:5173', // 允許的來源
+  credentials: true, // 允許發送 Cookie
+};
+
+app.use(cors(corsOptions));
 app.use('/api', blogRoutes);
 
 app.listen(port, () => {

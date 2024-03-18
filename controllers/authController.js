@@ -46,7 +46,7 @@ const authController = {
       }
   
       // 將用戶資訊存儲在會話中
-      req.session.user = { userId: user._id };
+      req.session.user = user;
       console.log('user在 express裡:', req.session);
       
   
