@@ -39,7 +39,7 @@ mongoose.connect(dbURI)
 app.use(express.json()); // 解析 JSON 請求主體
 
 const corsOptions = {
-  origin: 'http://localhost:5173', // 允許的來源
+  origin: ['http://localhost:5173', "ninja-course-ui.onrender.com"], // 允許的來源
   credentials: true, // 允許發送 Cookie
 };
 
