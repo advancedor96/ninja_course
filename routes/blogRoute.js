@@ -6,7 +6,7 @@ const authController = require('../controllers/authController');
 const authMiddleware = require('../middlewares/authMiddleware');
 
 // 定義路由
-router.get('/blogs', authMiddleware.authenticateUser, blogController.getAllBlogs);
+router.get('/blogs', authMiddleware.jwtVerifyToken, blogController.getAllBlogs);
 router.get('/blogs/:id', blogController.getBlogById);
 router.post('/blogs', authMiddleware.authenticateUser, blogController.createBlog);
 router.put('/blogs/:id', authMiddleware.authenticateUser, blogController.updateBlog);

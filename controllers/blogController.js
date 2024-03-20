@@ -6,7 +6,9 @@ const blogController = {
   getAllBlogs: async (req, res)=>{
     try {
       // claude 給我這一行：
-      const user = await User.findById(req.session.user._id).populate('blogs');
+      
+      // const user = await User.findById(req.session.user._id).populate('blogs');
+      const user = await User.findById(req.userId).populate('blogs');
       const blogs = user.blogs;
 
       // const blogs = await Blog.find();

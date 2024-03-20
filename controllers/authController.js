@@ -1,5 +1,9 @@
 const {Blog, User} = require('../models/blogs.js');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
+
+const jwtKey = process.env.JWT_KEY;
 
 // 待加
 // const bcrypt = require('../utils/bcryptUtils');
@@ -45,12 +49,15 @@ const authController = {
         return res.status(400).json({ message: '登入失敗，密碼錯誤' });
       }
   
+      // 使用 jwt 
+      const token = jwt.sign({ userId: user._id }, jwtKey, { expiresIn: '1h' });
+
       // 將用戶資訊存儲在會話中
       req.session.user = user;
       console.log('user在 express裡:', req.session);
       
   
-      res.json({ message: `${username}登入成功` });
+      res.json({ message: `${username}登入成功`, token });
     } catch (err) {
       console.error(err);
       res.status(500).json({ message: '登入錯誤' });

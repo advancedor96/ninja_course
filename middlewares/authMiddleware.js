@@ -1,3 +1,10 @@
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
+
+const jwtKey = process.env.JWT_KEY;
+console.log('取得jwt key:',jwtKey);
+
+
 exports.authenticateUser = (req, res, next) => {
   console.log('中途的session id:',req.sessionID);
   
@@ -13,3 +20,19 @@ exports.authenticateUser = (req, res, next) => {
 
   next();
 };
+
+exports.jwtVerifyToken = (req, res, next) => {
+  const token = req.headers.authorization?.split(' ')[1];
+  console.log('中途檢查jwt:', token);
+  if (token) {
+    jwt.verify(token, jwtKey, (err, decoded) => {
+      if (err) {
+        return res.status(403).json({ message: 'jwt驗證失敗' });
+      }
+      req.userId = decoded.userId;
+      next();
+    });
+  } else {
+    res.status(403).json({ message: 'No token provided' });
+  }
+}
